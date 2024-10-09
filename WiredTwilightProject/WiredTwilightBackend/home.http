@@ -1,8 +1,8 @@
 ### Cadastro de Usuário
 
-GET http://localhost:5223
+GET http://localhost:5223/PegarRegistro
 ###
-POST https://localhost:5223/registro
+POST http://localhost:5223/registro
 Content-Type: application/json
 
 {
