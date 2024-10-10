@@ -1,0 +1,11 @@
+### Cadastro de Usuário
+
+GET http://localhost:5223/PegarRegistro
+###
+POST http://localhost:5223/registro
+Content-Type: application/json
+
+{
+  "Username": "usuario_exemplo",
+  "Password": "senha_segura"
+}
