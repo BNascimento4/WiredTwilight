@@ -13,20 +13,26 @@ namespace WiredTwilightBackend
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-          .HasKey(u => u.Id);
+                .HasKey(u => u.Id);
 
             // Configurações adicionais para a entidade User
             modelBuilder.Entity<User>()
                 .Property(u => u.Username)
-                .IsRequired() // Define como obrigatória
-                .HasMaxLength(50); // Define um comprimento máximo
+                .IsRequired()
+                .HasMaxLength(50);
 
             modelBuilder.Entity<User>()
-                .Property(u => u.Password)
-                .IsRequired() // Define como obrigatória
-                .HasMaxLength(100); // Define um comprimento máximo
-                                    // Se necessário, adicione configurações adicionais de mapeamento aqui
+                .Property(u => u.PasswordHash)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            // Removido: Configuração para 'Password' que é [NotMapped]
+            // modelBuilder.Entity<User>()
+            //     .Property(u => u.Password)
+            //     .IsRequired()
+            //     .HasMaxLength(100);
         }
+
 
         public DbSet<User> Users { get; set; }
     }

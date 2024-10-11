@@ -9,3 +9,11 @@ Content-Type: application/json
   "Username": "usuario_exemplo",
   "Password": "senha_segura"
 }
+###
+POST http://localhost:5223/login
+Content-Type: application/json
+
+{
+  "Username": "usuario_exemplo",
+  "Password": "senha_segura"
+}

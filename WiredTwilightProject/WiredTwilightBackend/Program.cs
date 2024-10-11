@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WiredTwilightBackend;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema; // Para NotMapped
+using BCrypt.Net; // Para BCrypt
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +33,17 @@ app.UseAuthorization();  // Habilita autorização (caso tenha implementado).
 app.MapControllers();  // Mapeia as rotas para os controllers.
 
 // Endpoint POST para registro de usuário
+
+
+// Endpoint GET para obter registros de usuários
+app.MapGet("/PegarRegistro", async (WiredTwilightDbContext banco) =>
+{
+    var usuarios = await banco.Users
+        .Select(u => new { u.Id, u.Username }) // Removido u.Password
+        .ToListAsync();
+    return Results.Ok(usuarios);
+});
+
 app.MapPost("/registro", async (WiredTwilightDbContext banco, [FromBody] User usuario) =>
 {
     if (string.IsNullOrWhiteSpace(usuario.Username) || string.IsNullOrWhiteSpace(usuario.Password))
@@ -44,14 +58,7 @@ app.MapPost("/registro", async (WiredTwilightDbContext banco, [FromBody] User us
     return Results.Created($"/registro/{usuario.Id}", new { usuario.Id, usuario.Username });
 });
 
-// Endpoint GET para obter registros de usuários
-app.MapGet("/PegarRegistro", async (WiredTwilightDbContext banco) =>
-{
-    var usuarios = await banco.Users
-        .Select(u => new { u.Id, u.Username, u.Password })
-        .ToListAsync();
-    return Results.Ok(usuarios);
-});
+// Endpoint POST para login
 app.MapPost("/login", async (WiredTwilightDbContext banco, [FromBody] LoginRequest loginRequest) =>
 {
     // Verifica se o usuário existe
