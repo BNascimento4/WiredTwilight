@@ -34,5 +34,6 @@ public class User
     {
         return BCrypt.Verify(password, this.PasswordHash);
     }
+    public bool IsAdmin { get; set; } = false;
 }
 

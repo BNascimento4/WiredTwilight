@@ -1,19 +1,74 @@
 ### Cadastro de Usuário
-
-GET http://localhost:5223/PegarRegistro
-###
 POST http://localhost:5223/registro
 Content-Type: application/json
 
 {
-  "Username": "usuario_exemplo",
-  "Password": "senha_segura"
+  "Username": "usuari",
+  "Password": "senh"
 }
+
 ###
+
+### Login de Usuário
 POST http://localhost:5223/login
 Content-Type: application/json
 
 {
-  "Username": "usuario_exemplo",
-  "Password": "senha_segura"
+  "Username": "usuari",
+  "Password": "senh"
 }
+
+###
+
+### Criar um Fórum
+POST http://localhost:5223/forum
+Content-Type: application/json
+Authorization: Bearer <TOKEN_AQUI>
+
+{
+  "Title": "Título do Fórum",
+  "Description": "Descrição do Fórum",
+  "IsActive": true
+}
+
+###
+
+### Criar um Post em um Fórum
+POST http://localhost:5223/forum/1/post
+Content-Type: application/json
+Authorization: Bearer <TOKEN_AQUI>
+
+{
+  "Title": "Título do Post",
+  "Content": "Conteúdo do Post"
+}
+
+###
+
+### Comentar em um Post
+POST http://localhost:5223/post/1/comment
+Content-Type: application/json
+Authorization: Bearer <TOKEN_AQUI>
+
+{
+  "Content": "Este é um comentário no post."
+}
+
+###
+
+### Enviar uma Mensagem Privada
+POST http://localhost:5223/message
+Content-Type: application/json
+Authorization: Bearer <TOKEN_AQUI>
+
+{
+  "ToUserId": "ID_DO_USUARIO_DESTINATARIO",
+  "Content": "Olá, esta é uma mensagem privada."
+}
+
+###
+
+### Remover um Post
+DELETE http://localhost:5223/post/1
+Authorization: Bearer <TOKEN_AQUI>
+
