@@ -1,7 +1,8 @@
+
 namespace WiredTwilightBackend;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using BCrypt.Net;
+using System.ComponentModel.DataAnnotations.Schema; // Para NotMapped
+using BCrypt.Net; // Para BCrypt
 public class Forum
 {
     [Key]
@@ -19,7 +20,13 @@ public class Forum
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<Post> Posts { get; set; }  // Postagens no fórum
+    public ICollection<Post> Posts { get; set; } = new List<Post>();  // Inicializado aqui
 
     public bool IsActive { get; set; } = true;  // Se o fórum está ativo
+
+    public Forum()
+    {
+
+    }
 }
+

@@ -1,7 +1,7 @@
 namespace WiredTwilightBackend;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using BCrypt.Net;
+using System.ComponentModel.DataAnnotations.Schema; // Para NotMapped
+using BCrypt.Net; // Para BCrypt
 public class Post
 {
     [Key]
@@ -13,7 +13,6 @@ public class Post
     [Required]
     public string Content { get; set; }  // Conteúdo do post
 
-
     public string? CreatedByUserId { get; set; }
 
     public User CreatedByUser { get; set; }  // Usuário que criou o post
@@ -23,11 +22,12 @@ public class Post
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<Comment> Comments { get; set; }  // Comentários no post
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();  // Inicializado aqui
 
-    public ICollection<Tag> Tags { get; set; }  // Tags associadas ao post
+    public ICollection<Tag> Tags { get; set; } = new List<Tag>();  // Inicializado aqui
+
     public Post()
     {
-        CreatedByUserId = "default"; // Initialize with a default value
+        CreatedByUserId = "default"; // Inicialização padrão, se necessário
     }
 }
