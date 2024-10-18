@@ -5,7 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using WiredTwilightBackend;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
+
 
 // Método para obter o usuário atual
 static async Task<User?> GetCurrentUserAsync(WiredTwilightDbContext db, ClaimsPrincipal user)
@@ -27,12 +32,25 @@ builder.Services.AddDbContext<WiredTwilightDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("WiredTwilightDB")));
 
 // Adicionar serviços ao contêiner
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configuração de autenticação e autorização
-var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourNewSuperSecretKeyThatIsAtLeast32BytesLong123"));
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var keyString = jwtSettings["Key"]; // A chave secreta vem da configuração
+
+if (string.IsNullOrEmpty(keyString))
+{
+    throw new InvalidOperationException("A chave JWT não está configurada. Verifique o arquivo de configuração.");
+}
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString));
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,9 +63,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "https://seu-issuer-aqui",
-        ValidAudience = "your-audience",
-        IssuerSigningKey = key // Chave segura
+        ValidIssuer = "https://seu-issuer-aqui", // Ajuste conforme necessário
+        ValidAudience = "your-audience", // Ajuste conforme necessário
+        IssuerSigningKey = key // Chave segura para assinatura
     };
 });
 
@@ -93,14 +111,15 @@ app.MapPost("/login", async (WiredTwilightDbContext banco, [FromBody] LoginReque
         {
             new Claim(ClaimTypes.NameIdentifier, usuario.Id),
             new Claim(ClaimTypes.Name, usuario.Username),
+            new Claim("role", usuario.IsAdmin ? "admin" : "user") // Adicionar claim de role
         };
 
         var token = new JwtSecurityToken(
-            issuer: "http://seu-issuer-aqui",
+            issuer: "https://seu-issuer-aqui",
             audience: "your-audience",
             claims: claims,
             expires: DateTime.Now.AddHours(1),
-            signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256) // Use a chave definida acima
+            signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
         );
 
         return Results.Ok(new
@@ -113,6 +132,7 @@ app.MapPost("/login", async (WiredTwilightDbContext banco, [FromBody] LoginReque
         return Results.BadRequest("Senha incorreta.");
     }
 });
+
 
 // Endpoint POST para criar um fórum
 app.MapPost("/forum", async (WiredTwilightDbContext db, [FromBody] Forum forum, HttpContext http) =>
@@ -130,7 +150,55 @@ app.MapPost("/forum", async (WiredTwilightDbContext db, [FromBody] Forum forum, 
 });
 
 // Endpoint POST para criar um post em um fórum
-app.MapPost("/forum/{forumId}/post", async (WiredTwilightDbContext db, int forumId, [FromBody] Post post, HttpContext http) =>
+
+// Endpoint POST para criar um post em um fórum
+app.MapPost("/forum/{forumId}/post", async (WiredTwilightDbContext db, int forumId, [FromBody] PostDTO postDto, HttpContext http) =>
+{
+    try
+    {
+        var currentUser = await GetCurrentUserAsync(db, http.User);
+        if (currentUser == null)
+        {
+            return Results.Unauthorized();
+        }
+
+        var forum = await db.Forums.FindAsync(forumId);
+        if (forum == null || !forum.IsActive)
+        {
+            return Results.NotFound("Fórum não encontrado ou inativo.");
+        }
+
+        if (!Validator.TryValidateObject(postDto, new ValidationContext(postDto), null, true))
+        {
+            return Results.BadRequest("Dados inválidos.");
+        }
+
+        var post = new Post
+        {
+            Title = postDto.Title,
+            Content = postDto.Content,
+            CreatedByUserId = currentUser.Id,
+            ForumId = forumId
+        };
+
+        db.Posts.Add(post);
+        await db.SaveChangesAsync();
+        return Results.Created($"/forum/{forumId}/post/{post.Id}", post);
+    }
+    catch (JsonException jsonEx)
+    {
+        // Handle JSON serialization errors
+        return Results.BadRequest("Erro de serialização: " + jsonEx.Message);
+    }
+    catch (Exception ex)
+    {
+
+        return Results.Problem("Erro interno do servidor: " + ex.Message, statusCode: 500);
+    }
+});
+
+// Endpoint POST para enviar uma mensagem privada
+app.MapPost("/message", async (WiredTwilightDbContext db, [FromBody] PrivateMessage message, HttpContext http) =>
 {
     var currentUser = await GetCurrentUserAsync(db, http.User);
     if (currentUser == null)
@@ -138,19 +206,34 @@ app.MapPost("/forum/{forumId}/post", async (WiredTwilightDbContext db, int forum
         return Results.Unauthorized();
     }
 
-    var forum = await db.Forums.FindAsync(forumId);
-    if (forum == null || !forum.IsActive)
+    message.FromUserId = currentUser.Id;
+    db.PrivateMessages.Add(message);
+    await db.SaveChangesAsync();
+    return Results.Created($"/message/{message.Id}", message);
+});
+
+// Endpoint DELETE para remover um post (moderação)
+app.MapDelete("/post/{postId}", [Authorize(Policy = "AdminPolicy")] async (WiredTwilightDbContext db, int postId, HttpContext http) =>
+{
+    var currentUser = await GetCurrentUserAsync(db, http.User);
+    if (currentUser == null)
     {
-        return Results.NotFound("Fórum não encontrado ou inativo.");
+        return Results.Unauthorized();
     }
 
-    post.CreatedByUserId = currentUser.Id;
-    post.ForumId = forumId;
+    var post = await db.Posts.FindAsync(postId);
+    if (post == null)
+    {
+        return Results.NotFound("Post não encontrado.");
+    }
 
-    db.Posts.Add(post);
+    db.Posts.Remove(post);
     await db.SaveChangesAsync();
-    return Results.Created($"/forum/{forumId}/post/{post.Id}", post);
+    return Results.NoContent();
 });
+
+
+
 
 // Endpoint POST para comentar em um post
 app.MapPost("/post/{postId}/comment", async (WiredTwilightDbContext db, int postId, [FromBody] Comment comment, HttpContext http) =>
@@ -208,45 +291,8 @@ app.MapGet("/search", async (WiredTwilightDbContext db, [FromQuery] string? keyw
 });
 
 // Endpoint POST para enviar uma mensagem privada
-app.MapPost("/message", async (WiredTwilightDbContext db, [FromBody] PrivateMessage message, HttpContext http) =>
-{
-    var currentUser = await GetCurrentUserAsync(db, http.User);
-    if (currentUser == null)
-    {
-        return Results.Unauthorized();
-    }
 
-    message.FromUserId = currentUser.Id;
-    db.PrivateMessages.Add(message);
-    await db.SaveChangesAsync();
-    return Results.Created($"/message/{message.Id}", message);
-});
 
-// Endpoint DELETE para remover um post (moderação)
-app.MapDelete("/post/{postId}", async (WiredTwilightDbContext db, int postId, HttpContext http) =>
-{
-    var currentUser = await GetCurrentUserAsync(db, http.User);
-    if (currentUser == null)
-    {
-        return Results.Unauthorized();
-    }
-
-    var post = await db.Posts.FindAsync(postId);
-    if (post == null)
-    {
-        return Results.NotFound("Post não encontrado.");
-    }
-
-    // Verifica se o usuário é admin
-    if (!currentUser.IsAdmin)
-    {
-        return Results.Forbid();
-    }
-
-    db.Posts.Remove(post);
-    await db.SaveChangesAsync();
-    return Results.NoContent();
-});
 
 // Endpoint GET para análise de dados do fórum
 app.MapGet("/analytics/forum/{forumId}", async (WiredTwilightDbContext db, int forumId) =>

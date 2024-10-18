@@ -23,7 +23,7 @@ Content-Type: application/json
 ### Criar um Fórum
 POST http://localhost:5223/forum
 Content-Type: application/json
-Authorization: Bearer <TOKEN_AQUI>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTEwNjIwNSwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.Ws1AwQWvFuugig-ifqnZER3B5yQ5v3PsCrdqVUUaMWE
 
 {
   "Title": "Título do Fórum",
@@ -36,7 +36,7 @@ Authorization: Bearer <TOKEN_AQUI>
 ### Criar um Post em um Fórum
 POST http://localhost:5223/forum/1/post
 Content-Type: application/json
-Authorization: Bearer <TOKEN_AQUI>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTEwNjIwNSwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.Ws1AwQWvFuugig-ifqnZER3B5yQ5v3PsCrdqVUUaMWE
 
 {
   "Title": "Título do Post",
