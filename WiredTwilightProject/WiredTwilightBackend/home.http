@@ -3,8 +3,8 @@ POST http://localhost:5223/registro
 Content-Type: application/json
 
 {
-  "Username": "usuari",
-  "Password": "senh"
+  "Username": "rodrigo",
+  "Password": "senha1"
 }
 
 ###
@@ -23,7 +23,7 @@ Content-Type: application/json
 ### Criar um Fórum
 POST http://localhost:5223/forum
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTEwNjIwNSwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.Ws1AwQWvFuugig-ifqnZER3B5yQ5v3PsCrdqVUUaMWE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTI3NDk4OCwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.XXNTp-ObT0r65GJJb0ZZInqoax0c0yjov8ppZPsybD0
 
 {
   "Title": "Título do Fórum",
@@ -34,9 +34,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hc
 ###
 
 ### Criar um Post em um Fórum
-POST http://localhost:5223/forum/1/post
+POST http://localhost:5223/forum/3/post
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTEwNjIwNSwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.Ws1AwQWvFuugig-ifqnZER3B5yQ5v3PsCrdqVUUaMWE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTI3NDk4OCwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.XXNTp-ObT0r65GJJb0ZZInqoax0c0yjov8ppZPsybD0
 
 {
   "Title": "Título do Post",
@@ -46,9 +46,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hc
 ###
 
 ### Comentar em um Post
-POST http://localhost:5223/post/1/comment
+POST http://localhost:5223/forum/1/post/1/comment
 Content-Type: application/json
-Authorization: Bearer <TOKEN_AQUI>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTI3NDk4OCwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.XXNTp-ObT0r65GJJb0ZZInqoax0c0yjov8ppZPsybD0
+
 
 {
   "Content": "Este é um comentário no post."
@@ -59,10 +60,11 @@ Authorization: Bearer <TOKEN_AQUI>
 ### Enviar uma Mensagem Privada
 POST http://localhost:5223/message
 Content-Type: application/json
-Authorization: Bearer <TOKEN_AQUI>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTI3NDk4OCwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.XXNTp-ObT0r65GJJb0ZZInqoax0c0yjov8ppZPsybD0
+
 
 {
-  "ToUserId": "ID_DO_USUARIO_DESTINATARIO",
+  "ToUserId": "b4958580-bfb3-454b-8e4f-5b92759e3408",
   "Content": "Olá, esta é uma mensagem privada."
 }
 
@@ -71,4 +73,13 @@ Authorization: Bearer <TOKEN_AQUI>
 ### Remover um Post
 DELETE http://localhost:5223/post/1
 Authorization: Bearer <TOKEN_AQUI>
-
+###
+GET http://localhost:5223/forums
+###
+GET http://localhost:5223/forum/1/posts
+###
+GET http://localhost:5223/forum/1/post/1/comments
+###
+GET http://localhost:5223/analytics/forum/1
+###
+GET http://localhost:5223/search

@@ -236,7 +236,7 @@ app.MapDelete("/post/{postId}", [Authorize(Policy = "AdminPolicy")] async (Wired
 
 
 // Endpoint POST para comentar em um post
-app.MapPost("/post/{postId}/comment", async (WiredTwilightDbContext db, int postId, [FromBody] Comment comment, HttpContext http) =>
+app.MapPost("/forum/{forumId}/post/{postId}/comment", async (WiredTwilightDbContext db, int forumId, int postId, [FromBody] Comment comment, HttpContext http) =>
 {
     var currentUser = await GetCurrentUserAsync(db, http.User);
     if (currentUser == null)
@@ -244,18 +244,27 @@ app.MapPost("/post/{postId}/comment", async (WiredTwilightDbContext db, int post
         return Results.Unauthorized();
     }
 
-    var post = await db.Posts.FindAsync(postId);
-    if (post == null)
+    // Recupera o fórum
+    var forum = await db.Forums.FindAsync(forumId);
+    if (forum == null || !forum.IsActive)
     {
-        return Results.NotFound("Post não encontrado.");
+        return Results.NotFound("Fórum não encontrado ou inativo.");
     }
 
+    // Recupera o post associado ao fórum
+    var post = await db.Posts.FirstOrDefaultAsync(p => p.Id == postId && p.ForumId == forumId);
+    if (post == null)
+    {
+        return Results.NotFound("Post não encontrado ou não pertence ao fórum especificado.");
+    }
+
+    // Adiciona o comentário
     comment.CreatedByUserId = currentUser.Id;
     comment.PostId = postId;
 
     db.Comments.Add(comment);
     await db.SaveChangesAsync();
-    return Results.Created($"/post/{postId}/comment/{comment.Id}", comment);
+    return Results.Created($"/forum/{forumId}/post/{postId}/comment/{comment.Id}", comment);
 });
 
 // Endpoint GET para busca avançada
@@ -338,5 +347,99 @@ app.MapGet("/PegarRegistro", async (WiredTwilightDbContext banco) =>
     var usuarios = await banco.Users.ToListAsync();
     return Results.Ok(usuarios);
 });
+app.MapGet("/forums", async (WiredTwilightDbContext db) =>
+{
+    try
+    {
+        var forums = await db.Forums
+            .Include(f => f.Posts) // Incluir posts associados a cada fórum
+            .Where(f => f.IsActive) // Filtrar apenas fóruns ativos
+            .Select(f => new
+            {
+                f.Id,
+                f.Title,
+                f.Description,
+                Posts = f.Posts.Select(p => new
+                {
+                    p.Id,
+                    p.Title,
+                    p.Content,
+                    p.CreatedAt,
+                    CreatedByUserId = p.CreatedByUserId // Você pode substituir pelo nome do usuário, se preferir
+                }).ToList()
+            })
+            .ToListAsync();
+
+        return Results.Ok(forums); // Retorna a lista de fóruns e seus posts
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem("Erro interno do servidor: " + ex.Message, statusCode: 500);
+    }
+});
+app.MapGet("/forum/{forumId}/posts", async (WiredTwilightDbContext db, int forumId) =>
+{
+    try
+    {
+        // Busca o fórum pelo ID e inclui os posts
+        var forum = await db.Forums
+            .Include(f => f.Posts) // Incluir posts associados a este fórum
+            .FirstOrDefaultAsync(f => f.Id == forumId && f.IsActive); // Verifica se o fórum é ativo
+
+        // Verifica se o fórum foi encontrado
+        if (forum == null)
+        {
+            return Results.NotFound("Fórum não encontrado ou inativo.");
+        }
+
+        // Projeção dos posts para retornar os dados desejados
+        var posts = forum.Posts.Select(p => new
+        {
+            p.Id,
+            p.Title,
+            p.Content,
+            p.CreatedAt,
+            CreatedByUserId = p.CreatedByUserId // Você pode substituir pelo nome do usuário, se preferir
+        }).ToList();
+
+        return Results.Ok(posts); // Retorna a lista de posts do fórum
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem("Erro interno do servidor: " + ex.Message, statusCode: 500);
+    }
+});
+app.MapGet("/forum/{forumId}/post/{postId}/comments", async (WiredTwilightDbContext db, int forumId, int postId) =>
+{
+    try
+    {
+        // Busca o post pelo ID e inclui os comentários
+        var post = await db.Posts
+            .Include(p => p.Comments) // Incluir comentários associados a este post
+            .FirstOrDefaultAsync(p => p.Id == postId);
+
+        // Verifica se o post foi encontrado e se está associado ao fórum
+        if (post == null || post.ForumId != forumId)
+        {
+            return Results.NotFound("Post não encontrado ou não pertence ao fórum especificado.");
+        }
+
+        // Projeção dos comentários para retornar os dados desejados
+        var comments = post.Comments.Select(c => new
+        {
+            c.Id,
+            c.Content,
+            c.CreatedAt,
+            CreatedByUserId = c.CreatedByUserId // Você pode substituir pelo nome do usuário, se preferir
+        }).ToList();
+
+        return Results.Ok(comments); // Retorna a lista de comentários do post
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem("Erro interno do servidor: " + ex.Message, statusCode: 500);
+    }
+});
+
 
 app.Run();
