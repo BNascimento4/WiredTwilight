@@ -3,27 +3,23 @@ POST http://localhost:5223/registro
 Content-Type: application/json
 
 {
-  "Username": "usuari",
-  "Password": "senh"
+  "Username": "Michael",
+  "Password": "123Senha"
 }
-
-###
 
 ### Login de Usuário
 POST http://localhost:5223/login
 Content-Type: application/json
 
 {
-  "Username": "usuari",
-  "Password": "senh"
+  "Username": "Michael",
+  "Password": "123Senha"
 }
 
-###
 
 ### Criar um Fórum
 POST http://localhost:5223/forum
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTEwNjIwNSwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.Ws1AwQWvFuugig-ifqnZER3B5yQ5v3PsCrdqVUUaMWE
 
 {
   "Title": "Título do Fórum",
@@ -31,44 +27,72 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hc
   "IsActive": true
 }
 
-###
 
 ### Criar um Post em um Fórum
-POST http://localhost:5223/forum/1/post
+POST http://localhost:5223/forum/6/post
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc4ZmRjOGE5LWQ3NjEtNGRiMi05ZjViLTgzMzA5MTllZTZiMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ1c3VhcmkiLCJyb2xlIjoidXNlciIsImV4cCI6MTcyOTEwNjIwNSwiaXNzIjoiaHR0cHM6Ly9zZXUtaXNzdWVyLWFxdWkiLCJhdWQiOiJ5b3VyLWF1ZGllbmNlIn0.Ws1AwQWvFuugig-ifqnZER3B5yQ5v3PsCrdqVUUaMWE
 
 {
-  "Title": "Título do Post",
-  "Content": "Conteúdo do Post"
+  "Title": "Título",
+  "Content": "Conteúdo"
 }
 
-###
 
 ### Comentar em um Post
-POST http://localhost:5223/post/1/comment
+POST http://localost:5223/forum/6/post/16/comment
 Content-Type: application/json
-Authorization: Bearer <TOKEN_AQUI>
 
 {
   "Content": "Este é um comentário no post."
 }
 
-###
 
 ### Enviar uma Mensagem Privada
 POST http://localhost:5223/message
 Content-Type: application/json
-Authorization: Bearer <TOKEN_AQUI>
+
 
 {
-  "ToUserId": "ID_DO_USUARIO_DESTINATARIO",
+  "ToUserId": "b4958580-bfb3-454b-8e4f-5b92759e3408",
   "Content": "Olá, esta é uma mensagem privada."
 }
 
-###
+
+### get forum
+GET http://localhost:5223/forums
+
+
+### get forum 6 post
+GET http://localhost:5223/forum/6/posts
+
+
+### get forum 6 post 16 nos comentários
+GET http://localhost:5223/forum/6/post/16/comments
+
+
+### get analizando forum 1
+GET http://localhost:5223/analytics/forum/1
+
+
+### get para procurar
+GET http://localhost:5223/search
+
+
+### atualizar nome usuário
+PUT http://localhost:5223/usuario/atualizar-username
+Content-Type: application/json
+
+{
+  "NewUsername": "B",
+  "Password":"123senha"
+}
+
 
 ### Remover um Post
-DELETE http://localhost:5223/post/1
-Authorization: Bearer <TOKEN_AQUI>
+DELETE http://localhost:5223/forum/6/post/16
+
+
+### Remover forum
+DELETE http://localhost:5000/forum/6
+
 
