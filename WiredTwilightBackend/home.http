@@ -1,0 +1,103 @@
+### Cadastro de Usuário
+POST http://localhost:5223/registro
+Content-Type: application/json
+
+{
+  "Username": "usuari",
+  "Password": "senh"
+}
+
+### Login de Usuário
+POST http://localhost:5223/login
+Content-Type: application/json
+
+{
+  "Username": "Thais",
+  "Password": "senha21"
+}
+
+
+### Criar um Fórum
+POST http://localhost:5223/forum
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijc5ZWYxZDM5LTVmMDktNDA2Mi04MDYzLTg1Y2M1MWE1N2E2YSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJUaGFpcyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzI5NDc3MTQwLCJpc3MiOiJodHRwczovL3NldS1pc3N1ZXItYXF1aSIsImF1ZCI6InlvdXItYXVkaWVuY2UifQ.VP4WzZmvUhWlk-EOrCcydr8284Unv5elxe4ksjsDcpc
+
+{
+  "Title": "Título1",
+  "Description": "Descrição1",
+  "IsActive": true
+}
+
+
+### Criar um Post em um Fórum
+POST http://localhost:5223/forum/6/post
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEwZDk5NDQyLTE2Y2UtNGQ5MC1hNjY3LTk1MTlhNDU2OWVkYiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJNYXJjb3MzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjkzNzQyNTgsImlzcyI6Imh0dHBzOi8vc2V1LWlzc3Vlci1hcXVpIiwiYXVkIjoieW91ci1hdWRpZW5jZSJ9.l4JKt9uxfxbPA97YiBSLOkozTInZRh4NiFwyLGWoDEk
+
+{
+  "Title": "Título",
+  "Content": "Conteúdo"
+}
+
+
+### Comentar em um Post
+POST http://localhost:5223/forum/6/post/16/comment
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEwZDk5NDQyLTE2Y2UtNGQ5MC1hNjY3LTk1MTlhNDU2OWVkYiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJNYXJjb3MzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjkzNzUxMjMsImlzcyI6Imh0dHBzOi8vc2V1LWlzc3Vlci1hcXVpIiwiYXVkIjoieW91ci1hdWRpZW5jZSJ9.a0Qx2ohI0JnBcPsahhjogA_p11adFfKGsDdM1Gb3r6I
+
+{
+  "Content": "Este é um comentário no post."
+}
+
+
+### Enviar uma Mensagem Privada
+POST http://localhost:5223/message
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEwZDk5NDQyLTE2Y2UtNGQ5MC1hNjY3LTk1MTlhNDU2OWVkYiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJNYXJjb3MzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjkzNzUxMjMsImlzcyI6Imh0dHBzOi8vc2V1LWlzc3Vlci1hcXVpIiwiYXVkIjoieW91ci1hdWRpZW5jZSJ9.a0Qx2ohI0JnBcPsahhjogA_p11adFfKGsDdM1Gb3r6I
+
+{
+  "ToUserId": "b4958580-bfb3-454b-8e4f-5b92759e3408",
+  "Content": "Olá, esta é uma mensagem privada."
+}
+
+
+###
+GET http://localhost:5223/forums
+
+
+###
+GET http://localhost:5223/forum/6/posts
+
+
+###
+GET http://localhost:5223/forum/6/post/16/comments
+
+
+###
+GET http://localhost:5223/analytics/forum/1
+
+
+###
+GET http://localhost:5223/search
+
+
+###
+PUT http://localhost:5223/usuario/atualizar-username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEwZDk5NDQyLTE2Y2UtNGQ5MC1hNjY3LTk1MTlhNDU2OWVkYiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJNYXJjb3MzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjkzNzUxMjMsImlzcyI6Imh0dHBzOi8vc2V1LWlzc3Vlci1hcXVpIiwiYXVkIjoieW91ci1hdWRpZW5jZSJ9.a0Qx2ohI0JnBcPsahhjogA_p11adFfKGsDdM1Gb3r6I
+
+{
+  "NewUsername": "A"
+}
+
+
+### Remover um Post
+DELETE http://localhost:5223/forum/6/post/16
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEwZDk5NDQyLTE2Y2UtNGQ5MC1hNjY3LTk1MTlhNDU2OWVkYiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJNYXJjb3MzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjkzNzUxMjMsImlzcyI6Imh0dHBzOi8vc2V1LWlzc3Vlci1hcXVpIiwiYXVkIjoieW91ci1hdWRpZW5jZSJ9.a0Qx2ohI0JnBcPsahhjogA_p11adFfKGsDdM1Gb3r6I
+
+
+###
+DELETE http://localhost:5000/forum/1/post/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEwZDk5NDQyLTE2Y2UtNGQ5MC1hNjY3LTk1MTlhNDU2OWVkYiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJNYXJjb3MzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjkzNzUxMjMsImlzcyI6Imh0dHBzOi8vc2V1LWlzc3Vlci1hcXVpIiwiYXVkIjoieW91ci1hdWRpZW5jZSJ9.a0Qx2ohI0JnBcPsahhjogA_p11adFfKGsDdM1Gb3r6I
+
+
