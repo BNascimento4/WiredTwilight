@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { addCommentToPost } from './adicionarComentario'; // Importe a função aqui
 
 const CreatePost: React.FC = () => {
     const { forumId, postId } = useParams<{ forumId: string, postId: string }>(); // Obtém o ID do fórum e do post da URL
     const [content, setContent] = useState('');
     const [message, setMessage] = useState<string | null>(null);
+    const navigate = useNavigate(); // Hook de navegação
 
     const handleAddComment = async () => {
         if (!forumId || !postId) {
@@ -33,6 +34,11 @@ const CreatePost: React.FC = () => {
         }
     };
 
+    // Função para voltar à lista de fóruns
+    const handleGoBack = () => {
+        navigate('/forums'); // Navega para a página de lista de fóruns
+    };
+
     return (
         <div>
             <h1>Adicionar Comentário ao Post</h1>
@@ -55,9 +61,11 @@ const CreatePost: React.FC = () => {
                 <button type="submit">Adicionar Comentário</button>
             </form>
             {message && <p>{message}</p>}
+
+            {/* Botão de Voltar */}
+            <button onClick={handleGoBack}>Voltar</button>
         </div>
     );
 };
 
 export default CreatePost;
-
