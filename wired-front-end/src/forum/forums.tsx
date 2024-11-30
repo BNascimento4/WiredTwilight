@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Forum {
     id: number;
@@ -11,7 +12,7 @@ const ForumList: React.FC = () => {
     const [message, setMessage] = useState<string | null>(null);
 
     const fetchForums = async () => {
-        const token = localStorage.getItem('authToken'); // Recupera o token do localStorage
+        const token = localStorage.getItem('authToken');
         if (!token) {
             setMessage('Erro: Você precisa estar logado para visualizar os fóruns.');
             return;
@@ -21,7 +22,8 @@ const ForumList: React.FC = () => {
             const response = await fetch('http://localhost:5223/forums', {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`, // Autenticação
+                    // Corrigido a interpolação de string
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
@@ -38,7 +40,7 @@ const ForumList: React.FC = () => {
     };
 
     useEffect(() => {
-        fetchForums(); // Carrega os fóruns ao montar o componente
+        fetchForums();
     }, []);
 
     return (
@@ -48,14 +50,17 @@ const ForumList: React.FC = () => {
             <ul>
                 {forums.map((forum) => (
                     <li key={forum.id}>
-                        <a href={`/forum/${forum.id}`}>{forum.title}</a>
+                        {/* Corrigido a interpolação da URL no Link */}
+                        <Link to={`/forum/${forum.id}`}>{forum.title}</Link>
                         <p>{forum.description}</p>
                     </li>
                 ))}
             </ul>
+            <Link to="/forum/criar">
+                <button>Criar Fórum</button>
+            </Link>
         </div>
     );
 };
 
 export default ForumList;
-

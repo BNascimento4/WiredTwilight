@@ -1,22 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {}
+    "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight-1\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {
+    "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight-1\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight-1\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
         "projectName": "WiredTwilightBackend",
-        "projectPath": "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
-        "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\obj\\",
+        "projectPath": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight-1\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+        "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight-1\\WiredTwilightBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\NuGet.Config",
-          "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight-1\\WiredTwilightBackend\\NuGet.Config",
+          "C:\\Users\\guilh\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -63,7 +62,17 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -89,7 +98,7 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[9.0.0, )"
             }
           },
           "imports": [

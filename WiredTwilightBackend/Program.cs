@@ -38,7 +38,7 @@ builder.Services.AddCors(
         );
 // Configuração do banco de dados
 builder.Services.AddDbContext<WiredTwilightDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("WiredTwilightDB")));
+    options.UseSqlite("Data Source=WiredTwilight.db"));
 
 // Adicionar serviços ao contêiner
 builder.Services.AddControllers()
