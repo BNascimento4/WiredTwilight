@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8HQwOp2pJh4=",
+  "dgSpecHash": "Ymnyv8zcEQ8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\bruno\\Downloads\\_WiredTwilightBackend\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+  "projectFilePath": "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bruno\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\bruno\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

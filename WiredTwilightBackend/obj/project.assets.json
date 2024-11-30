@@ -3227,14 +3227,14 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bruno\\Downloads\\_WiredTwilightBackend\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+      "projectUniqueName": "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
       "projectName": "WiredTwilightBackend",
-      "projectPath": "C:\\Users\\bruno\\Downloads\\_WiredTwilightBackend\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+      "projectPath": "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
       "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bruno\\Downloads\\_WiredTwilightBackend\\WiredTwilightBackend\\obj\\",
+      "outputPath": "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\bruno\\Downloads\\_WiredTwilightBackend\\WiredTwilightBackend\\NuGet.Config",
+        "C:\\Users\\bruno\\Desktop\\trabalho\\WiredTwilightBackend\\NuGet.Config",
         "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
