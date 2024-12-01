@@ -1,0 +1,77 @@
+/* Estilo específico para o login */
+body{
+    background-color: #fcb103;
+    
+}
+.Login {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto; /* Centraliza o formulário na tela */
+    box-sizing: border-box;
+    box-shadow:  1px 5px 20px #000000;
+}
+
+h1 {
+    text-align: center;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}
+
+.InputGroup {
+    margin-bottom: 15px;
+    width: 100%; /* Garante que ocupe toda a largura disponível */
+}
+
+.InputGroup input {
+    width: 100%;
+    padding: 12px; /* Maior espaçamento interno para melhorar a usabilidade */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Garante que o padding não afete o tamanho total */
+}
+
+/* Estilo para o grupo de botões */
+.ButtonGroup {
+    display: flex; /* Alinha os botões na horizontal */
+    justify-content: space-between; /* Cria espaço uniforme entre os botões */
+    gap: 10px; /* Espaçamento entre os botões */
+    margin-top: 20px; /* Espaço acima do grupo de botões */
+}
+
+.ButtonGroup button {
+    flex: 1; /* Os botões ocupam espaços iguais */
+    padding: 12px 15px; /* Ajuste do tamanho dos botões */
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ButtonGroup button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .Login {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .ButtonGroup {
+        flex-direction: column; /* Coloca os botões em coluna em telas pequenas */
+    }
+
+    .ButtonGroup button {
+        width: 100%; /* Garante que os botões ocupem toda a largura disponível */
+        margin-top: 10px; /* Espaçamento entre os botões */
+    }
+}

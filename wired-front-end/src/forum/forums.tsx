@@ -45,7 +45,14 @@ const ForumList: React.FC = () => {
 
     return (
         <div>
-            <h1>Lista de Fóruns</h1>
+            <nav>
+                <img alt="Logo Wired Twilight"/>
+                <h1>Lista de Fóruns</h1>
+                <Link to="/forum/criar">
+                    <button>Criar Fórum</button>
+                </Link>
+            </nav>
+            
             {message && <p>{message}</p>}
             <ul>
                 {forums.map((forum) => (
@@ -56,9 +63,6 @@ const ForumList: React.FC = () => {
                     </li>
                 ))}
             </ul>
-            <Link to="/forum/criar">
-                <button>Criar Fórum</button>
-            </Link>
         </div>
     );
 };

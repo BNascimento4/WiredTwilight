@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '..//Styles//Login.css';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -33,15 +34,16 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="Login">
             <h1>Login</h1>
             <form
+                className="LoginForm"
                 onSubmit={(e) => {
                     e.preventDefault();
                     handleLogin();
                 }}
             >
-                <div>
+                <div className="InputGroup">
                     <label>
                         Usuário:
                         <input
@@ -53,7 +55,7 @@ const Login: React.FC = () => {
                         />
                     </label>
                 </div>
-                <div>
+                <div className="InputGroup">
                     <label>
                         Senha:
                         <input
@@ -65,10 +67,15 @@ const Login: React.FC = () => {
                         />
                     </label>
                 </div>
-                <button type="submit">Concluir</button>
+                <div className="ButtonGroup">
+                    <button type="submit">Concluir</button>
+                    <button
+                        type="button"
+                        onClick={() => navigate('/registro')}
+                    >Registrar-se</button>
+                </div>
+                {message && <p>{message}</p>}
             </form>
-            <button onClick={() => navigate('/registro')}>Registrar-se</button>
-            {message && <p>{message}</p>}
         </div>
     );
 };

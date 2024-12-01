@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '..//Styles//registro.css';
 
 const Registro: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -33,15 +34,16 @@ const Registro: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='Registro'>
             <h1>Registro de Usuário</h1>
             <form
+                className='RegistroForm'
                 onSubmit={(e) => {
                     e.preventDefault();
                     handleRegister();
                 }}
             >
-                <div>
+                <div className='InputGroup'>
                     <label>
                         Nome de Usuário:
                         <input
@@ -53,7 +55,7 @@ const Registro: React.FC = () => {
                         />
                     </label>
                 </div>
-                <div>
+                <div className='InputGroup'>
                     <label>
                         Senha:
                         <input
@@ -65,9 +67,13 @@ const Registro: React.FC = () => {
                         />
                     </label>
                 </div>
-                <button type="submit">Registrar</button>
+                <div className="ButtonGroup">
+                    <button type="submit">Registrar</button>
+                    <button type="button"
+                        onClick={() => navigate('/')}
+                        >Ir para Login</button>
+                </div>
             </form>
-            <button onClick={() => navigate('/')}>Ir para Login</button>
             {responseMessage && <p>{responseMessage}</p>}
         </div>
     );

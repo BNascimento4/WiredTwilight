@@ -1,0 +1,44 @@
+/* Responsividade para telas pequenas (celulares) */
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .Login {
+    width: 100%;
+    padding: 15px;
+    box-shadow: none;
+    border-radius: 5px;
+  }
+
+  .ButtonGroup {
+    flex-direction: column;
+  }
+
+  .ButtonGroup button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* Responsividade para tablets (entre 600px e 1024px) */
+@media (max-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
+
+  .Login {
+    width: 80%;
+    padding: 20px;
+  }
+
+  .ButtonGroup {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .ButtonGroup button {
+    width: 48%; /* Ajusta os botões para ficarem mais próximos */
+  }
+}
