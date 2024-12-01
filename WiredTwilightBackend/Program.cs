@@ -163,48 +163,62 @@ app.MapPost("/forum", async (WiredTwilightDbContext db, [FromBody] Forum forum, 
 // Endpoint POST para criar um post em um fórum
 app.MapPost("/forum/{forumId}/post", async (WiredTwilightDbContext db, int forumId, [FromBody] PostDTO postDto, HttpContext http) =>
 {
-    try
+    var currentUser = await GetCurrentUserAsync(db, http.User);
+    if (currentUser == null)
     {
-        var currentUser = await GetCurrentUserAsync(db, http.User);
-        if (currentUser == null)
-        {
-            return Results.Unauthorized();
-        }
-
-        var forum = await db.Forums.FindAsync(forumId);
-        if (forum == null || !forum.IsActive)
-        {
-            return Results.NotFound("Fórum não encontrado ou inativo.");
-        }
-
-        if (!Validator.TryValidateObject(postDto, new ValidationContext(postDto), null, true))
-        {
-            return Results.BadRequest("Dados inválidos.");
-        }
-
-        var post = new Post
-        {
-            Title = postDto.Title,
-            Content = postDto.Content,
-            CreatedByUserId = currentUser.Id,
-            ForumId = forumId
-        };
-
-        db.Posts.Add(post);
-        await db.SaveChangesAsync();
-        return Results.Created($"/forum/{forumId}/post/{post.Id}", post);
+        return Results.Unauthorized();
     }
-    catch (JsonException jsonEx)
+
+    var forum = await db.Forums.FirstOrDefaultAsync(f => f.Id == forumId);
+    if (forum == null || !forum.IsActive)
     {
-        // Handle JSON serialization errors
-        return Results.BadRequest("Erro de serialização: " + jsonEx.Message);
+        return Results.NotFound("Fórum não encontrado ou inativo.");
     }
-    catch (Exception ex)
-    {
 
-        return Results.Problem("Erro interno do servidor: " + ex.Message, statusCode: 500);
+    if (forum.CreatedByUserId != currentUser.Id)
+    {
+        return Results.Forbid(); // Restringe a criação de posts
     }
+
+    var post = new Post
+    {
+        Title = postDto.Title,
+        Content = postDto.Content,
+        CreatedByUserId = currentUser.Id,
+        ForumId = forumId
+    };
+
+    db.Posts.Add(post);
+    await db.SaveChangesAsync();
+    return Results.Created($"/forum/{forumId}/post/{post.Id}", post);
 });
+
+//Endpoint Delete para deletar o post do usuário com permissão
+app.MapDelete("/forum/{forumId}/post/{postId}", async (WiredTwilightDbContext db, int forumId, int postId, HttpContext http) =>
+{
+    var currentUser = await GetCurrentUserAsync(db, http.User);
+    if (currentUser == null)
+    {
+        return Results.Unauthorized();
+    }
+
+    var post = await db.Posts.FirstOrDefaultAsync(p => p.Id == postId && p.ForumId == forumId);
+    if (post == null)
+    {
+        return Results.NotFound("Post não encontrado ou não pertence ao fórum especificado.");
+    }
+
+    var forum = await db.Forums.FirstOrDefaultAsync(f => f.Id == forumId);
+    if (forum == null || forum.CreatedByUserId != currentUser.Id)
+    {
+        return Results.Forbid(); // Restringe a deleção de posts
+    }
+
+    db.Posts.Remove(post);
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+
 
 // Endpoint POST para enviar uma mensagem privada
 app.MapPost("/message", async (WiredTwilightDbContext db, [FromBody] PrivateMessage message, HttpContext http) =>

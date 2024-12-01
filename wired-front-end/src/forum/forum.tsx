@@ -123,9 +123,6 @@ const CreateForum: React.FC = () => {
       </form>
       {responseMessage && <p>{responseMessage}</p>}
 
-      {/* Botão de Voltar */}
-      <button onClick={handleGoBack}>Voltar</button>
-
       {/* Modal de confirmação */}
       <ConfirmModal
         showModal={showModal}

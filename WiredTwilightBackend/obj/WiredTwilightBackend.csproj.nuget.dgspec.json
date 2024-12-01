@@ -1,22 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {}
+    "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {
+    "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
         "projectName": "WiredTwilightBackend",
-        "projectPath": "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
-        "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\obj\\",
+        "projectPath": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+        "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\NuGet.Config",
-          "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\NuGet.Config",
+          "C:\\Users\\guilh\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
