@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WiredTwilightBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35b8d9873a4c04b1e11482e60f272a4171633c03")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4446e701cc3eeade13bb3c3395809f298fe4ec89")]
 [assembly: System.Reflection.AssemblyProductAttribute("WiredTwilightBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WiredTwilightBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

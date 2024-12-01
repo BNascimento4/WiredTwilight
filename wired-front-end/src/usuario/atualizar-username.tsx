@@ -8,39 +8,39 @@ const AtualizarUsername: React.FC = () => {
 
     const handleUpdateName = async () => {
         const token = localStorage.getItem('authToken');
-
+    
         if (!token) {
             setMessage('Você precisa estar logado para alterar seu nome.');
             return;
         }
-
-        if (!newName) {
-            setMessage('Por favor, insira um novo nome.');
+    
+        if (!newName.trim()) {
+            setMessage('Por favor, insira um novo nome de usuário.');
             return;
         }
-
+    
         try {
-            const response = await fetch('http://localhost:5223/usuario/alterar-nome', {
+            const response = await fetch('http://localhost:5223/usuario/atualizar-username', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`, // Corrigido: Uso correto do template string
                 },
-                body: JSON.stringify({ newName }),
+                body: JSON.stringify({ newUsername: newName }), // Corrigido: Formato da propriedade
             });
-
+    
             if (response.ok) {
                 setMessage('Nome alterado com sucesso!');
                 setTimeout(() => {
-                    navigate('/'); // Redireciona para a tela de lista de fóruns
+                    navigate('/'); // Redireciona para outra página
                     alert('Nome atualizado com sucesso!');
                 }, 1000);
             } else {
                 const errorData = await response.text();
-                setMessage(`Erro: ${errorData}`);
+                setMessage(`Erro: ${errorData}`); // Corrigido: Uso do template string
             }
         } catch (error) {
-            setMessage(`Erro ao conectar com o servidor: ${(error as Error).message}`);
+            setMessage(`Erro ao conectar com o servidor: ${(error as Error).message}`); // Corrigido: Uso do template string
         }
     };
 
