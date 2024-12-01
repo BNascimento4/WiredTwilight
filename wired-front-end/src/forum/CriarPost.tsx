@@ -1,56 +1,71 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addCommentToPost } from './adicionarComentario'; // Importe a função aqui
 
 const CreatePost: React.FC = () => {
-    const { forumId, postId } = useParams<{ forumId: string, postId: string }>(); // Obtém o ID do fórum e do post da URL
+    const { forumId } = useParams<{ forumId: string }>(); // Obtém o ID do fórum da URL
+    const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const navigate = useNavigate(); // Hook de navegação
 
-    const handleAddComment = async () => {
-        if (!forumId || !postId) {
-            setMessage('Erro: Não foi possível encontrar o fórum ou post.');
+    const handleAddPost = async () => {
+        if (!forumId) {
+            setMessage('Erro: Não foi possível encontrar o fórum.');
             return;
         }
 
         const token = localStorage.getItem('authToken'); // Recupera o token
 
         if (!token) {
-            setMessage('Erro: Você precisa estar logado para adicionar um comentário.');
+            setMessage('Erro: Você precisa estar logado para criar um post.');
             return;
         }
 
         try {
-            const response = await addCommentToPost(Number(forumId), Number(postId), content);
+            const response = await fetch(`http://localhost:5223/forums/${forumId}/posts`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ title, content }),
+            });
 
-            if (response) {
-                setMessage('Comentário adicionado com sucesso!');
+            if (response.ok) {
+                setMessage('Post criado com sucesso!');
+                navigate(`/forum/${forumId}`); // Redireciona para o fórum
             } else {
-                setMessage('Erro: Não foi possível adicionar o comentário.');
+                const errorData = await response.text();
+                setMessage(`Erro: ${errorData}`);
             }
         } catch (error) {
             setMessage(`Erro ao conectar com o servidor: ${(error as Error).message}`);
         }
     };
 
-    // Função para voltar à lista de fóruns
-    const handleGoBack = () => {
-        navigate('/forums'); // Navega para a página de lista de fóruns
-    };
-
     return (
         <div>
-            <h1>Adicionar Comentário ao Post</h1>
+            <h1>Criar Post</h1>
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    handleAddComment();
+                    handleAddPost();
                 }}
             >
                 <div>
                     <label>
-                        Comentário:
+                        Título:
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Conteúdo:
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
@@ -58,14 +73,12 @@ const CreatePost: React.FC = () => {
                         />
                     </label>
                 </div>
-                <button type="submit">Adicionar Comentário</button>
+                <button type="submit">Criar Post</button>
             </form>
             {message && <p>{message}</p>}
-
-            {/* Botão de Voltar */}
-            <button onClick={handleGoBack}>Voltar</button>
         </div>
     );
 };
 
 export default CreatePost;
+

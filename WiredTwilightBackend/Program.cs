@@ -222,31 +222,34 @@ app.MapPost("/message", async (WiredTwilightDbContext db, [FromBody] PrivateMess
 });
 
 // Endpoint DELETE para remover um post (moderação)
-app.MapDelete("/forum/{forumId}/post/{postId}", [Authorize(Policy = "AdminPolicy")] async (WiredTwilightDbContext db, int forumId, int postId, HttpContext http) =>
+app.MapDelete("/forum/{forumId}/post/{postId}", async (WiredTwilightDbContext db, int forumId, int postId) =>
 {
-    var currentUser = await GetCurrentUserAsync(db, http.User);
-    if (currentUser == null)
+    try
     {
-        return Results.Unauthorized();
-    }
+        // Log básico de entrada no endpoint
+        Console.WriteLine($"Requisição DELETE recebida para ForumID={forumId}, PostID={postId}");
 
-    // Verifique se o fórum existe
-    var forum = await db.Forums.FindAsync(forumId);
-    if (forum == null)
+        // Recupera o post especificado
+        var post = await db.Posts.FirstOrDefaultAsync(p => p.Id == postId && p.ForumId == forumId);
+        if (post == null)
+        {
+            Console.WriteLine("Post não encontrado ou não pertence ao fórum especificado.");
+            return Results.NotFound("Post não encontrado ou não pertence ao fórum especificado.");
+        }
+
+        // Remove o post e salva as mudanças
+        db.Posts.Remove(post);
+        await db.SaveChangesAsync();
+
+        Console.WriteLine($"Post {postId} do Fórum {forumId} foi removido com sucesso.");
+        return Results.NoContent(); // Sucesso
+    }
+    catch (Exception ex)
     {
-        return Results.NotFound("Fórum não encontrado.");
+        // Captura erros inesperados
+        Console.WriteLine($"Erro ao tentar remover o post: {ex.Message}");
+        return Results.Problem("Erro interno do servidor.", statusCode: 500);
     }
-
-    // Tente encontrar o post dentro do fórum
-    var post = await db.Posts.FindAsync(postId);
-    if (post == null || post.ForumId != forumId)
-    {
-        return Results.NotFound("Post não encontrado.");
-    }
-
-    db.Posts.Remove(post);
-    await db.SaveChangesAsync();
-    return Results.NoContent();
 });
 
 

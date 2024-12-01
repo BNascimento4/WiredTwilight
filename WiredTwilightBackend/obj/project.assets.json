@@ -4236,20 +4236,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Vitisinho\\.nuget\\packages\\": {}
+    "C:\\Users\\bruno\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+      "projectUniqueName": "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
       "projectName": "WiredTwilightBackend",
-      "projectPath": "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
-      "packagesPath": "C:\\Users\\Vitisinho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\obj\\",
+      "projectPath": "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+      "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\NuGet.Config",
-        "C:\\Users\\Vitisinho\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\bruno\\Documents\\trabalhoDefinitivo\\WiredTwilight\\WiredTwilightBackend\\NuGet.Config",
+        "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -4354,7 +4355,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
