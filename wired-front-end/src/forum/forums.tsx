@@ -22,7 +22,6 @@ const ForumList: React.FC = () => {
             const response = await fetch('http://localhost:5223/forums', {
                 method: 'GET',
                 headers: {
-                    // Corrigido a interpolação de string
                     Authorization: `Bearer ${token}`,
                 },
             });
@@ -39,6 +38,33 @@ const ForumList: React.FC = () => {
         }
     };
 
+    const deleteForum = async (id: number) => {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            setMessage('Erro: Você precisa estar logado para deletar um fórum.');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5223/forums/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                setForums(forums.filter((forum) => forum.id !== id));
+                setMessage('Fórum deletado com sucesso.');
+            } else {
+                const errorData = await response.text();
+                setMessage(`Erro: ${errorData}`);
+            }
+        } catch (error) {
+            setMessage(`Erro ao conectar com o servidor: ${(error as Error).message}`);
+        }
+    };
+
     useEffect(() => {
         fetchForums();
     }, []);
@@ -46,7 +72,7 @@ const ForumList: React.FC = () => {
     return (
         <div>
             <nav>
-                <img alt="Logo Wired Twilight"/>
+                <img alt="Logo Wired Twilight" />
                 <h1>Lista de Fóruns</h1>
                 <Link to="/forum/criar">
                     <button>Criar Fórum</button>
@@ -57,9 +83,9 @@ const ForumList: React.FC = () => {
             <ul>
                 {forums.map((forum) => (
                     <li key={forum.id}>
-                        {/* Corrigido a interpolação da URL no Link */}
                         <Link to={`/forum/${forum.id}`}>{forum.title}</Link>
                         <p>{forum.description}</p>
+                        <button onClick={() => deleteForum(forum.id)}>Deletar</button>
                     </li>
                 ))}
             </ul>

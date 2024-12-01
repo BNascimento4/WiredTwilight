@@ -1,21 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {}
+    "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {
+    "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+        "projectUniqueName": "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
         "projectName": "WiredTwilightBackend",
-        "projectPath": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
-        "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\obj\\",
+        "projectPath": "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\WiredTwilightBackend.csproj",
+        "packagesPath": "C:\\Users\\Vitisinho\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\guilh\\OneDrive\\Área de Trabalho\\WiredTwilight\\WiredTwilightBackend\\NuGet.Config",
-          "C:\\Users\\guilh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Vitisinho\\Music\\Nova pasta\\WiredTwilight\\WiredTwilightBackend\\NuGet.Config",
+          "C:\\Users\\Vitisinho\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -120,7 +120,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
